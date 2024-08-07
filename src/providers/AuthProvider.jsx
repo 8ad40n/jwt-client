@@ -1,47 +1,61 @@
-import React, { createContext, useEffect, useState } from 'react';
-import app from '../firebase/firebase.config';
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
+import app from "../firebase/firebase.config";
 
 const auth = getAuth(app);
-export const AuthContext = createContext(null);
+export const AuthContext= createContext(null);
 
-export default function AuthProvider({children}) {
+
+
+export default function AuthProviders({children}) {
 
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Register
-  const RegisterWithPassword = (email, password)=>{
+  // Register with password
+  const RegisterWithPassword = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
-  } 
-
-  // Login 
-  const LoginWithPassword = (email, password)=>{
+  };
+  // Login with password
+  const LoginWithPassword = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
-  }
+  };
 
-  // Logout
-  const Logout = ()=>{
+
+
+  // Sign Out
+  const Logout= ()=>{
+    setLoading(true);
     return signOut(auth);
   }
 
-  // Manage User:
-  useEffect(()=>{
-    const unSubscribe = (auth, currentUser =>{
-        console.log("Current User: ",currentUser);
-        setUser(currentUser);
-    });
-    return ()=> unSubscribe();
-  },[])
 
-  const authInfo = {
+  // Manage user
+  useEffect( ()=>{
+    const unsubscribe= onAuthStateChanged( auth, (currentUser)=>{
+      console.log("User in Auth state change ", currentUser);
+      setUser(currentUser);
+      setLoading(false);
+    } );
+    return ()=>{
+      unsubscribe();
+    }
+  } ,[])
+
+
+  const authInfo={
     RegisterWithPassword,
     LoginWithPassword,
     Logout,
+    loading,
     user,
   }
 
-  return (
+  return(
     <AuthContext.Provider value={authInfo}>
         {children}
     </AuthContext.Provider>
-  )
+  );
 }
