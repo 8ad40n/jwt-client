@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../providers/AuthProvider";
 
 export default function Login() {
   const { LoginWithPassword } =
     useContext(AuthContext);
+
+  const nevigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -15,6 +19,8 @@ export default function Login() {
       .then((result) => {
         console.log(result.user);
         console.log("Login Successful");
+        console.log(location);
+        nevigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         console.log("Error:", error);
