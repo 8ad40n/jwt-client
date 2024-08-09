@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
@@ -13,6 +14,17 @@ export default function Register() {
       .then((result) => {
         console.log(result.user);
         console.log("Register successful");
+        const userData = {
+          uid: result.user.uid,          
+          email: result.user.email      
+        };
+        axios.post("http://localhost:3000/users", userData, {
+          withCredentials: true
+        })
+        .then(res=>{
+          console.log(res.data);
+        })
+        
       })
       .catch((error) => {
         console.error(error);
