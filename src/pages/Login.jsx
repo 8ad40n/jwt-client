@@ -20,7 +20,7 @@ export default function Login() {
         console.log(result.user);
         console.log("Login Successful");
         console.log(location);
-        nevigate(location?.state ? location.state : "/");
+        // nevigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
         console.log("Error:", error);

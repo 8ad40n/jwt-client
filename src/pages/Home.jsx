@@ -7,7 +7,7 @@ export default function Home() {
   const [users, setUsers] = useState([]);
 
   useEffect(()=>{
-    axios.get("http://localhost:3000/users")
+    axios.get("http://localhost:3000/users", {withCredentials:true})
     .then(res=>{
       console.log(res.data);
       setUsers(res.data);
