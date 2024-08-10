@@ -7,9 +7,9 @@ export default function Home() {
   const [users, setUsers] = useState([]);
 
   useEffect(()=>{
-    axios.get("http://localhost:3000/users", {withCredentials:true})
+    axios.get("https://jwt-server-five.vercel.app/users", {withCredentials:true})
     .then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       setUsers(res.data);
     })
   },[])

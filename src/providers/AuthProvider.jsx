@@ -39,27 +39,27 @@ export default function AuthProviders({children}) {
       const userEmail= currentUser?.email || user?.email;
       const loggedUser = {email: userEmail};
 
-      console.log("User in Auth state change ", currentUser);
+      // console.log("User in Auth state change ", currentUser);
       setUser(currentUser);
       setLoading(false);
 
       if(currentUser)
       {
-        axios.post("http://localhost:3000/jwt", loggedUser, {
+        axios.post("https://jwt-server-five.vercel.app/jwt", loggedUser, {
           withCredentials: true
         })
         .then(res=>{
-          console.log("Token response", res.data);
+          // console.log("Token response", res.data);
           
         })
       }
       else
       {
-        axios.post("http://localhost:3000/logout", loggedUser, {
+        axios.post("https://jwt-server-five.vercel.app/logout", loggedUser, {
           withCredentials: true
         })
         .then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
         })
       }
 

@@ -7,7 +7,7 @@ export default function Root() {
   const handleLogout = () => {
     Logout()
       .then(() => {
-        console.log("Log out successful!");
+        // console.log("Log out successful!");
       })
       .catch();
   };

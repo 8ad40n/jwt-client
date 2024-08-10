@@ -13,17 +13,17 @@ export default function Login() {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    // console.log(email, password);
 
     LoginWithPassword(email, password)
       .then((result) => {
-        console.log(result.user);
-        console.log("Login Successful");
-        console.log(location);
+        // console.log(result.user);
+        // console.log("Login Successful");
+        // console.log(location);
         // nevigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
-        console.log("Error:", error);
+        // console.log("Error:", error);
       });
   };
 

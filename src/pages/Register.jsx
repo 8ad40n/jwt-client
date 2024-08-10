@@ -8,21 +8,21 @@ export default function Register() {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    // console.log(email, password);
 
     RegisterWithPassword(email, password)
       .then((result) => {
-        console.log(result.user);
-        console.log("Register successful");
+        // console.log(result.user);
+        // console.log("Register successful");
         const userData = {
           uid: result.user.uid,          
           email: result.user.email      
         };
-        axios.post("http://localhost:3000/users", userData, {
+        axios.post("https://jwt-server-five.vercel.app/users", userData, {
           withCredentials: true
         })
         .then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
         })
         
       })
